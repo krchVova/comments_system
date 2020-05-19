@@ -5,6 +5,11 @@ namespace App\Rules\Comment;
 use App\Repositories\CommentRepository;
 use Illuminate\Contracts\Validation\Rule;
 
+/**
+ * Class IsDeletedRule
+ *
+ * @package App\Rules\Comment
+ */
 class IsDeletedRule implements Rule
 {
 
@@ -39,7 +44,7 @@ class IsDeletedRule implements Rule
      *
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         if($value === null) {
             return true;
@@ -51,9 +56,9 @@ class IsDeletedRule implements Rule
     /**
      * @inheritDoc
      */
-    public function message()
+    public function message(): string
     {
-
+        return 'Comment already deleted';
     }
 
 }

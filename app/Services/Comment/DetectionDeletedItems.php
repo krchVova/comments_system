@@ -2,14 +2,12 @@
 
 namespace App\Services\Comment;
 
-use App\Http\Resources\DeletedCommentResource;
-
 /**
  * Class TreeBuilder
  *
  * @package App\Services
  */
-class DetectDeletedItems
+class DetectionDeletedItems
 {
 
     const DELETED_MESSAGE = 'Comment was deleted';
@@ -22,9 +20,9 @@ class DetectDeletedItems
     /**
      * @param  array  $data
      *
-     * @return \App\Services\Comment\DetectDeletedItems
+     * @return \App\Services\Comment\DetectionDeletedItems
      */
-    public function setData(iterable $data): DetectDeletedItems
+    public function setData(iterable $data): DetectionDeletedItems
     {
         $this->data = $data;
 
@@ -74,17 +72,5 @@ class DetectDeletedItems
         }
 
         return $prepared;
-    }
-
-    /**
-     * @param $comments
-     *
-     * @return \Generator
-     */
-    private function generator($comments)
-    {
-        foreach ($comments as $comment) {
-            yield $comment;
-        }
     }
 }

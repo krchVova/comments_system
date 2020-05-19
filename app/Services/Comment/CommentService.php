@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Repositories\CommentRepository;
 
 use App\Services\TreeBuilder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CommentService
@@ -26,21 +27,21 @@ class CommentService
     private TreeBuilder $treeBuilder;
 
     /**
-     * @var \App\Services\Comment\DetectDeletedItems
+     * @var \App\Services\Comment\DetectionDeletedItems
      */
-    private DetectDeletedItems $deletedItems;
+    private DetectionDeletedItems $deletedItems;
 
     /**
      * CommentService constructor.
      *
      * @param  \App\Repositories\CommentRepository  $commentRepository
      * @param  \App\Services\TreeBuilder  $treeBuilder
-     * @param  \App\Services\Comment\DetectDeletedItems  $deletedItems
+     * @param  \App\Services\Comment\DetectionDeletedItems  $deletedItems
      */
     public function __construct(
         CommentRepository $commentRepository,
         TreeBuilder $treeBuilder,
-        DetectDeletedItems $deletedItems
+        DetectionDeletedItems $deletedItems
     )
     {
         $this->commentRepository = $commentRepository;
@@ -53,27 +54,19 @@ class CommentService
      */
     public function tree(): array
     {
-        $comments = $this->commentRepository->fetchAll();
-
-        $comments = $this->deletedItems->setData($comments)->get();
+        $comments = $this->deletedItems->setData(
+            $this->commentRepository->fetchAll()
+        )->get();
 
         return $this->treeBuilder->setData($comments)->tree();
     }
-
-    /**
-     * @param $comments
-     * @param  int  $parentId
-     *
-     * @return array
-     */
-
 
     /**
      * @param  \App\Http\Requests\StoreCommentRequest  $storeCommentRequest
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      */
-    public function store(StoreCommentRequest $storeCommentRequest)
+    public function store(StoreCommentRequest $storeCommentRequest): Model
     {
         return $this->commentRepository->store($storeCommentRequest);
     }

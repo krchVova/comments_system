@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCommentRequest;
-use App\Http\Requests\UpdateCommentRequest;
-use App\Http\Resources\CommentResource;
-use App\Http\Resources\CommentsResource;
-use App\Http\Resources\DeletedCommentResource;
-use App\Http\Resources\FullCommentResource;
+use App\Http\Requests\{StoreCommentRequest, UpdateCommentRequest};
+use App\Http\Resources\{CommentResource,
+    CommentsResource,
+    DeletedCommentResource,
+    FullCommentResource
+};
 use App\Repositories\CommentRepository;
 use App\Services\Comment\CommentService;
 
@@ -39,8 +39,7 @@ class CommentController extends Controller
     public function __construct(
         CommentRepository $commentRepository,
         CommentService $commentService
-    )
-    {
+    ) {
         $this->commentRepository = $commentRepository;
         $this->commentService = $commentService;
     }
@@ -54,7 +53,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      *
      * @return \App\Http\Resources\CommentResource
      */
@@ -94,4 +93,5 @@ class CommentController extends Controller
     {
         return new DeletedCommentResource($this->commentRepository->destroy($id));
     }
+
 }

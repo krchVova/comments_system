@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Interfaces\RepositoryInterface;
 use App\Models\Comment;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
@@ -75,7 +76,7 @@ class CommentRepository implements RepositoryInterface
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      */
-    public function store(StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request): Model
     {
         return $this->model->newQuery()->create($request->all());
     }
@@ -86,7 +87,7 @@ class CommentRepository implements RepositoryInterface
      * @return \App\Models\Comment
      * @throws \Exception
      */
-    public function destroy(int $id)
+    public function destroy(int $id): Comment
     {
         /** @var Comment $comment */
         $comment = $this->model->newQuery()->findOrFail($id);

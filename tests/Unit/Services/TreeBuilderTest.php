@@ -29,6 +29,9 @@ class TreeBuilderTest extends TestCase
     }
 
     /**
+     *
+     * Tree builder test
+     *
      * @dataProvider builderDataProvider
      *
      * @param $data
@@ -38,6 +41,9 @@ class TreeBuilderTest extends TestCase
         $this->assertEquals($this->treeBuilder->setData($data)->tree(), $this->completedData());
     }
 
+    /**
+     * @return array
+     */
     public function completedData()
     {
         return [
@@ -71,6 +77,9 @@ class TreeBuilderTest extends TestCase
 
     }
 
+    /**
+     * @return array
+     */
     public function builderDataProvider()
     {
         return [

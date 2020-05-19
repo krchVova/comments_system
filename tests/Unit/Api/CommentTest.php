@@ -7,13 +7,25 @@ use App\Models\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Class CommentTest
+ *
+ * @package Tests\Unit
+ */
 class CommentTest extends TestCase
 {
+
+    /**
+     * Check count inserted comments
+     */
     public function testCountComments()
     {
         $this->assertEquals(160, Comment::count());
     }
 
+    /**
+     * Get all comments
+     */
     public function testApiGetAllComments()
     {
         $this->json('GET', 'api/comment')
@@ -33,6 +45,9 @@ class CommentTest extends TestCase
             ]);
     }
 
+    /**
+     * Store comment
+     */
     public function testApiStoreComment()
     {
         $this->json('POST', 'api/comment', [
@@ -50,6 +65,9 @@ class CommentTest extends TestCase
             ]);
     }
 
+    /**
+     * Update exists comment
+     */
     public function testApiUpdateComment()
     {
         $this->json('PUT', 'api/comment/1', [
@@ -69,6 +87,9 @@ class CommentTest extends TestCase
             ]);
     }
 
+    /**
+     * Store reply to comment
+     */
     public function testApiStoreChildrenComment()
     {
         $this->json('POST', 'api/comment', [
@@ -86,6 +107,9 @@ class CommentTest extends TestCase
             ]);
     }
 
+    /**
+     * Delete child comment
+     */
     public function testApiDeleteChildrenComment()
     {
         $comment = Comment::count() - 1;
@@ -103,6 +127,9 @@ class CommentTest extends TestCase
             ]);
     }
 
+    /**
+     * Check 404 response code
+     */
     public function testApiNotFoundComment()
     {
         $comment = Comment::count() + 1;
